@@ -1,0 +1,6 @@
+---
+- name: Run apt update
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
+  listen: "Update Apt Cache"

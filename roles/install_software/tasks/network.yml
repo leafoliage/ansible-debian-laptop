@@ -1,0 +1,9 @@
+---
+- name: Install network manger apt packages
+  ansible.builtin.apt:
+    name:
+      - network-manager-fortisslvpn-gnome
+      - network-manager-gnome
+      - network-manager-l2tp-gnome
+    state: present
+  become: true

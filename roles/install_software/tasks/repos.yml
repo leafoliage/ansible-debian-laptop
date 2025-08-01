@@ -1,0 +1,30 @@
+---
+- name: Add debian apt sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://debian.cs.nycu.edu.tw/debian/ bookworm main contrib non-free non-free-firmware
+    state: present
+  become: true
+  notify: "Update Apt Cache"
+
+- name: Add docker apt sources list
+  deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: bookworm
+    components:
+      - stable
+    signed_by: https://download.docker.com/linux/debian/gpg
+  become: true
+  notify: "Update Apt Cache"
+
+- name: Add vscode apt sources list
+  deb822_repository:
+    name: vscode
+    types: deb
+    uris: https://packages.microsoft.com/repos/code
+    suites: stable
+    components: main
+    signed_by: https://packages.microsoft.com/keys/microsoft.asc
+  become: true
+  notify: "Update Apt Cache"

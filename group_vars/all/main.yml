@@ -1,0 +1,7 @@
+---
+ansible_become_method: su
+ansible_become_user: root
+ansible_user: leaf
+automation_pubkey: "{{ lookup('file', '/path/to/key.pub') }}"
+automation_user: ansible
+username: leaf

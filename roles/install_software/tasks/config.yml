@@ -1,0 +1,49 @@
+---
+- name: Create fish config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/fish"
+    state: directory
+    mode: 0755
+
+- name: Configure fish
+  ansible.builtin.copy:
+    src: config.fish
+    dest: "/home/{{ username }}/.config/fish/config.fish"
+    mode: "0644"
+
+- name: Create kitty config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/kitty/themes"
+    state: directory
+    mode: 0755
+
+- name: Configure kitty theme
+  ansible.builtin.copy:
+    src: kitty-macchiato.conf
+    dest: "/home/{{ username }}/.config/kitty/themes/macchiato.conf"
+    mode: "0644"
+
+- name: Configure kitty
+  ansible.builtin.lineinfile:
+    path: "/home/{{ username }}/.config/kitty/kitty.conf"
+    line: kitty +kitten themes --reload-in=all macchiato.conf
+    mode: "0644"
+    create: true
+
+- name: Configure tmux
+  ansible.builtin.copy:
+    src: tmux.conf
+    dest: "/home/{{ username }}/.tmux.conf"
+    mode: "0644"
+
+- name: Create tmux config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.tmux/plugins"
+    state: directory
+    mode: 0755
+
+- name: Configure Tmux Plugin Manager
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: "/home/{{ username }}/.tmux/plugins/tpm"
+    version: v3.1.0

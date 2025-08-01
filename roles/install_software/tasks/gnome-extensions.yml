@@ -1,0 +1,30 @@
+---
+- name: Install blur-my-shell extension
+  ansible.builtin.shell:
+    cmd: "/usr/bin/gnome-extensions install blur-my-shell@aunetx; /usr/bin/gnome-extensions enable blur-my-shell@aunetx"
+  changed_when: true
+  become: true
+
+- name: Install dash-to-dock extension
+  ansible.builtin.shell:
+    cmd: "/usr/bin/gnome-extensions install dash-to-dock@micxgx.gmail.com; /usr/bin/gnome-extensions enable dash-to-dock@micxgx.gmail.com"
+  changed_when: true
+  become: true
+
+- name: Install stopwatch extension
+  ansible.builtin.shell:
+    cmd: "/usr/bin/gnome-extensions install aaa; /usr/bin/gnome-extensions enable aaa"
+  changed_when: true
+  become: true
+
+- name: Install clipboard-history extension
+  ansible.builtin.shell:
+    cmd: "/usr/bin/gnome-extensions install clipboard-history@alexsaveau.dev; /usr/bin/gnome-extensions enable clipboard-history@alexsaveau.dev"
+  changed_when: true
+  become: true
+
+- name: Install lockscreen-background extension
+  ansible.builtin.shell:
+    cmd: "/usr/bin/gnome-extensions install unlockDialogBackground@sun.wxg@gmail.com; /usr/bin/gnome-extensions enable unlockDialogBackground@sun.wxg@gmail.com"
+  changed_when: true
+  become: true
