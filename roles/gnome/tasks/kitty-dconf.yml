@@ -1,0 +1,18 @@
+---
+- name: Configure kitty shortcut binding
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+    value: '<Control><Alt>k'
+    state: present
+
+- name: Configure kitty shortcut command
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+    value: '/usr/bin/kitty'
+    state: present
+
+- name: Configure kitty shortcut name
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+    value: 'kitty'
+    state: present

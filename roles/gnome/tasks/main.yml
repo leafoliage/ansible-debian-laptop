@@ -1,0 +1,9 @@
+---
+- name: Add input sources
+  ansible.builtin.include_tasks: input-sources.yml
+
+- name: Configure Gnome settings
+  ansible.builtin.include_tasks: dconf.yml
+
+- name: Configure Kitty Gnome settings
+  ansible.builtin.include_tasks: kitty-dconf.yml

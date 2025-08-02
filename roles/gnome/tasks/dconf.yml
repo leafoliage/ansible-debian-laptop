@@ -1,0 +1,30 @@
+---
+- name: Configure tap-to-click
+  community.general.dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+    value: "true"
+    state: present
+
+- name: Configure input sources
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/sources"
+    value: "[('xkb', 'us'), ('ibus', 'libzhuyin')]"
+    state: present
+
+- name: Configure home folder shortcut
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/home"
+    value: "['<Super>e']"
+    state: present
+
+- name: Configure browser shortcut
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/www"
+    value: "['<Super>b']"
+    state: present
+
+- name: Configure settings shortcut
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/control-center"
+    value: "['<Super>i']"
+    state: present

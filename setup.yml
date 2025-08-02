@@ -5,3 +5,5 @@
   roles:
     - role: install_software
       tags: install_software
+    - role: gnome
+      tags: gnome
