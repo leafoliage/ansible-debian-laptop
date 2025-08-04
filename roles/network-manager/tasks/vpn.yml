@@ -1,0 +1,55 @@
+---
+- name: Create VPN to dorm
+  community.general.nmcli:
+    type: vpn
+    conn_name: dorm
+    vpn:
+      permissions: "{{ username }}"
+      service-type: org.freedesktop.NetworkManager.l2tp
+      gateway: "{{ dorm_vpn_gateway }}"
+      password-flags: 1
+      user: "{{ dorm_vpn_username }}"
+      ipsec-enabled: true
+      ipsec-psk: "{{ dorm_vpn_psk }}"
+    autoconnect: false
+    state: present
+
+# Lacking realm
+- name: Create VPN to cc prod
+  community.general.nmcli:
+    type: vpn
+    conn_name: cc-prod
+    vpn:
+      permissions: "{{ username }}"
+      service-type: org.freedesktop.NetworkManager.fortisslvpn
+      gateway: "{{ cc_vpn_gateway }}"
+      password-flags: 1
+      user: "{{ cc_vpn_username }}"
+    autoconnect: false
+    state: present
+
+- name: Create VPN to cc test
+  community.general.nmcli:
+    type: vpn
+    conn_name: cc-test
+    vpn:
+      permissions: "{{ username }}"
+      service-type: org.freedesktop.NetworkManager.fortisslvpn
+      gateway: "{{ cc_vpn_gateway }}"
+      password-flags: 1
+      user: "{{ cc_vpn_username }}"
+    autoconnect: false
+    state: present
+
+- name: Create VPN to nycu
+  community.general.nmcli:
+    type: vpn
+    conn_name: nycu
+    vpn:
+      permissions: "{{ username }}"
+      service-type: org.freedesktop.NetworkManager.fortisslvpn
+      gateway: "{{ nycu_vpn_gateway }}"
+      password-flags: 1
+      user: "{{ nycu_vpn_username }}"
+    autoconnect: false
+    state: present
