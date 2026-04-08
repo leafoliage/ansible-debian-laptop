@@ -1,0 +1,36 @@
+---
+- name: Desktop
+  hosts: "{{ var_host | default('desktop') }}"
+  vars:
+    codename: "{{ ansible_lsb.codename }}"
+    username: "leaf"
+  gather_facts: true
+  roles:
+    - role: core_cli
+      tags: core_cli
+    - role: qemu_agent
+      tags: qemu_agent
+    - role: nvidia_drivers_open
+      tags: nvidia_drivers_open
+    - role: net_tools
+      tags: net_tools
+    - role: docker
+      tags: docker
+    - role: build_essential
+      tags: build_essential
+    - role: kitty
+      tags: kitty
+    - role: vscode
+      tags: vscode
+    - role: remmina
+      tags: remmina
+    - role: steam
+      tags: steam
+    - role: fonts
+      tags: fonts
+    - role: chinese
+      tags: chinese
+    - role: japanese
+      tags: japanese
+    - role: vpn
+      tags: vpn

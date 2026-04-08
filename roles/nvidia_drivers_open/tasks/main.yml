@@ -1,0 +1,21 @@
+---
+- name: Download NVIDIA repository
+  ansible.builtin.get_url:
+    url: "https://developer.download.nvidia.com/compute/cuda/repos/{{ codename }}/x86_64/cuda-keyring_1.0-1_all.deb"
+    dest: "/tmp/cuda-keyring_1.0-1_all.deb"
+
+- name: Add NVIDIA repository
+  ansible.builtin.apt:
+    deb: "/tmp/cuda-keyring_1.0-1_all.deb"
+  become: true
+
+- name: Run apt update
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
+
+- name: Install nvidia-open
+  ansible.builtin.apt:
+    name: nvidia-open
+    state: present
+  become: true

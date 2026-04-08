@@ -1,0 +1,13 @@
+---
+- name: Install ansible apt package
+  ansible.builtin.apt:
+    name:
+      - pandoc
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-extra-utils
+      - texlive-fonts-recommended
+      - texlive-xetex
+
+    state: present
+  become: true

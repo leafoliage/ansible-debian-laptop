@@ -1,0 +1,14 @@
+---
+- name: Create destination directory
+  ansible.builtin.file:
+    path: "/usr/local/share/fonts/ShareTechMono"
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Install Shure Tech Mono Nerd Font
+  ansible.builtin.unarchive:
+    src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/ShareTechMono.zip"
+    dest: "/usr/local/share/fonts/ShareTechMono"
+    remote_src: yes
+  become: true

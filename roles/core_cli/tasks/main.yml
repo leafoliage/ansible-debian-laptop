@@ -1,0 +1,95 @@
+---
+- name: Install vim
+  ansible.builtin.apt:
+    name:
+      - vim
+      - tmux
+      - htop
+    state: present
+  become: true
+
+- name: Install tmux
+  ansible.builtin.apt:
+    name:
+      - tmux
+    state: present
+  become: true
+
+- name: Configure tmux
+  ansible.builtin.copy:
+    src: tmux.conf
+    dest: "/home/{{ username }}/.tmux.conf"
+    mode: "0644"
+
+- name: Create tmux config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.tmux/plugins"
+    state: directory
+    mode: "0755"
+
+- name: Configure Tmux Plugin Manager
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: "/home/{{ username }}/.tmux/plugins/tpm"
+    version: v3.1.0
+
+- name: Install htop
+  ansible.builtin.apt:
+    name:
+      - htop
+    state: present
+  become: true
+
+- name: Install fish
+  ansible.builtin.apt:
+    name:
+      - fish
+    state: present
+  become: true
+
+- name: Create fish config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/fish"
+    state: directory
+    mode: "0755"
+
+- name: Configure fish
+  ansible.builtin.copy:
+    src: config.fish
+    dest: "/home/{{ username }}/.config/fish/config.fish"
+    mode: "0644"
+
+- name: Install curl
+  ansible.builtin.apt:
+    name:
+      - curl
+    state: present
+  become: true
+
+- name: Install tree
+  ansible.builtin.apt:
+    name:
+      - tree
+    state: present
+  become: true
+
+- name: Install just
+  ansible.builtin.apt:
+    name:
+      - just
+    state: present
+  become: true
+
+- name: Install zoxide
+  ansible.builtin.apt:
+    name:
+      - zoxide
+    state: present
+  become: true
+
+- name: Install fdfind
+  ansible.builtin.apt:
+    name:
+      - fd-find
+    state: present
+  become: true

@@ -1,0 +1,12 @@
+---
+- name: Install fctix5 packages
+  ansible.builtin.apt:
+    name:
+      - fcitx5
+      - fcitx5-configtool
+      - fcitx5-chinese-addons
+      - fcitx5-frontend-all
+      - fcitx5-chewing
+    state: present
+  become: true
+

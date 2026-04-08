@@ -1,0 +1,31 @@
+---
+- name: Install kitty apt package
+  ansible.builtin.apt:
+    name: kitty
+    state: present
+  become: true
+
+- name: Create kitty config directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/kitty/themes"
+    state: directory
+    mode: "0755"
+
+- name: Configure kitty
+  ansible.builtin.copy:
+    src: kitty.conf
+    dest: "/home/{{ username }}/.config/kitty/kitty.conf"
+    mode: "0644"
+
+- name: Configure kitty theme
+  ansible.builtin.copy:
+    src: macchiato.conf
+    dest: "/home/{{ username }}/.config/kitty/themes/macchiato.conf"
+    mode: "0644"
+
+- name: Configure kitty
+  ansible.builtin.lineinfile:
+    path: "/home/{{ username }}/.config/kitty/kitty.conf"
+    line: kitty +kitten themes --reload-in=all macchiato.conf
+    mode: "0644"
+    create: true

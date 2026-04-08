@@ -1,0 +1,6 @@
+---
+- name: Install remmina apt package
+  ansible.builtin.apt:
+    name: remmina
+    state: present
+  become: true

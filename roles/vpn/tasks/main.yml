@@ -1,0 +1,6 @@
+---
+- name: Install network manager openconnect plugin
+  ansible.builtin.apt:
+    name: network-manager-openconnect
+    state: present
+  become: true

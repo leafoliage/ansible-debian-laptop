@@ -1,0 +1,10 @@
+---
+- name: Install net tools apt package
+  ansible.builtin.apt:
+    name:
+      - net-tools
+      - curl
+      - netcat-openbsd
+      - tcpdump
+    state: present
+  become: true

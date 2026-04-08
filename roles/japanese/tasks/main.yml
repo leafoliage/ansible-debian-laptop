@@ -1,0 +1,11 @@
+---
+- name: Install fctix5 packages
+  ansible.builtin.apt:
+    name:
+      - fcitx5
+      - fcitx5-configtool
+      - fcitx5-frontend-all
+      - fcitx5-mozc
+    state: present
+  become: true
+
