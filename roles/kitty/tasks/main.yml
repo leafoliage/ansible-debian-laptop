@@ -29,3 +29,10 @@
     line: kitty +kitten themes --reload-in=all macchiato.conf
     mode: "0644"
     create: true
+
+- name: Configure kitty.desktop
+  ansible.builtin.lineinfile:
+    path: "/usr/share/applications/kitty.desktop"
+    regexp: "^Exec=kitty$"
+    line: "Exec=kitty --start-as maximized"
+  become: true
