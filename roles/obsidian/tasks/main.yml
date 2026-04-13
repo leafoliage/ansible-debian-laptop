@@ -1,0 +1,38 @@
+---
+- name: Query GitHub API for latest Obsidian release
+  ansible.builtin.uri:
+    url: "{{ obsidian_api_url }}"
+    return_content: true
+    headers:
+      Accept: application/vnd.github+json
+  register: obsidian_release
+
+- name: Extract version tag from release metadata
+  ansible.builtin.set_fact:
+    obsidian_version: "{{ obsidian_release.json.tag_name | regex_replace('^v', '') }}"
+
+- name: Check if Obsidian is already installed
+  ansible.builtin.command: dpkg-query -W -f='${Version}' obsidian
+  register: obsidian_installed
+  failed_when: false
+  changed_when: false
+
+- name: Download Obsidian deb package
+  ansible.builtin.get_url:
+    url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v{{ obsidian_version }}/obsidian_{{ obsidian_version }}_amd64.deb"
+    dest: "{{ obsidian_tmp_deb }}"
+    mode: "0644"
+  when: obsidian_installed.stdout != obsidian_version
+
+- name: Install Obsidian deb package
+  ansible.builtin.apt:
+    deb: "{{ obsidian_tmp_deb }}"
+    state: present
+  when: obsidian_installed.stdout != obsidian_version
+  become: true
+
+- name: Remove downloaded deb package
+  ansible.builtin.file:
+    path: "{{ obsidian_tmp_deb }}"
+    state: absent
+  when: obsidian_installed.stdout != obsidian_version

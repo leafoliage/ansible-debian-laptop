@@ -34,3 +34,5 @@
       tags: japanese
     - role: vpn
       tags: vpn
+    - role: obsidian
+      tags: obsidian
