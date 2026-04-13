@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "/home/{{ username }}/.config/fish"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Configure fish
   ansible.builtin.copy:
@@ -15,7 +15,7 @@
   ansible.builtin.file:
     path: "/home/{{ username }}/.config/kitty/themes"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Configure kitty theme
   ansible.builtin.copy:
@@ -40,7 +40,7 @@
   ansible.builtin.file:
     path: "/home/{{ username }}/.tmux/plugins"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Configure Tmux Plugin Manager
   ansible.builtin.git:

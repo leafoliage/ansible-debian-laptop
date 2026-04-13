@@ -9,4 +9,3 @@
       - fcitx5-chewing
     state: present
   become: true
-

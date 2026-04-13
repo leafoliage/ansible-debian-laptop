@@ -10,5 +10,5 @@
   ansible.builtin.unarchive:
     src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/ShareTechMono.zip"
     dest: "/usr/local/share/fonts/ShareTechMono"
-    remote_src: yes
+    remote_src: true
   become: true

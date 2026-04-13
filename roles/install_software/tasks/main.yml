@@ -3,7 +3,7 @@
   ansible.builtin.include_tasks: repos.yml
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Install CLI software
   ansible.builtin.include_tasks: cli.yml
