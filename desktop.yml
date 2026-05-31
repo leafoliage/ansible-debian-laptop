@@ -36,3 +36,5 @@
       tags: vpn
     - role: obsidian
       tags: obsidian
+    - role: rclone
+      tags: rclone

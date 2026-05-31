@@ -1,0 +1,97 @@
+---
+- name: Ensure unzip is installed
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+  become: true
+
+- name: Download rclone archive
+  ansible.builtin.get_url:
+    url: "{{ rclone_download_url }}"
+    dest: "{{ rclone_tmp_zip }}"
+    mode: "0644"
+
+- name: Create rclone extraction directory
+  ansible.builtin.file:
+    path: "{{ rclone_tmp_extract_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Extract rclone archive
+  ansible.builtin.unarchive:
+    src: "{{ rclone_tmp_zip }}"
+    dest: "{{ rclone_tmp_extract_dir }}"
+    remote_src: true
+
+- name: Locate extracted rclone directory
+  ansible.builtin.find:
+    paths: "{{ rclone_tmp_extract_dir }}"
+    patterns: "rclone-*-linux-amd64"
+    file_type: directory
+  register: rclone_extracted
+
+- name: Set extracted directory fact
+  ansible.builtin.set_fact:
+    rclone_src_dir: "{{ rclone_extracted.files[0].path }}"
+
+- name: Install rclone binary
+  ansible.builtin.copy:
+    src: "{{ rclone_src_dir }}/rclone"
+    dest: "{{ rclone_bin_path }}"
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+
+- name: Install rclone manual page
+  ansible.builtin.copy:
+    src: "{{ rclone_src_dir }}/rclone.1"
+    dest: "{{ rclone_man_path }}"
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
+- name: Remove rclone temporary files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ rclone_tmp_zip }}"
+    - "{{ rclone_tmp_extract_dir }}"
+
+- name: Create iCloud Drive mount point
+  ansible.builtin.file:
+    path: /icloud
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  become: true
+
+- name: Create systemd user unit directory
+  ansible.builtin.file:
+    path: "{{ rclone_service_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Create rclone iCloud Drive mount service
+  ansible.builtin.copy:
+    src: "{{ rclone_service_name }}"
+    dest: "{{ rclone_service_dir }}/{{ rclone_service_name }}"
+    mode: "0644"
+
+- name: Reload systemd user manager
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: user
+
+- name: Notice — configure the iCloud remote before starting the service
+  ansible.builtin.debug:
+    msg:
+      - "rclone is installed and the '{{ rclone_service_name }}' user service is created (not enabled)."
+      - "Configure the 'icloud:' remote with 'rclone config' before starting the service."
+      - "Then start it with: systemctl --user start {{ rclone_service_name }}"
+      - "And enable it on login with: systemctl --user enable {{ rclone_service_name }}"

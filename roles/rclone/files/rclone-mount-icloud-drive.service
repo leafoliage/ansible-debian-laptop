@@ -1,0 +1,14 @@
+[Unit]
+Description=Rclone mount iCloud Drive service
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount "icloud:" "/icloud" --iclouddrive-service drive --vfs-refresh --dir-cache-time 1h --vfs-cache-mode full --attr-timeout 1m
+ExecStop=/usr/bin/fusermount -u /icloud
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

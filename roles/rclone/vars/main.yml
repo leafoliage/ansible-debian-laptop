@@ -1,0 +1,8 @@
+---
+rclone_download_url: https://downloads.rclone.org/rclone-current-linux-amd64.zip
+rclone_tmp_zip: /tmp/rclone-current-linux-amd64.zip
+rclone_tmp_extract_dir: /tmp/rclone-extract
+rclone_bin_path: /usr/bin/rclone
+rclone_man_path: /usr/local/share/man/man1/rclone.1
+rclone_service_dir: "/home/{{ username }}/.config/systemd/user"
+rclone_service_name: rclone-mount-icloud-drive.service
