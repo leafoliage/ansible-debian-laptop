@@ -25,3 +25,10 @@
       - docker-compose-plugin
     state: present
   become: true
+
+- name: "Add user to docker group: {{ username }}"
+  become: true
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: docker
+    append: true

@@ -8,6 +8,8 @@
   roles:
     - role: core_cli
       tags: core_cli
+    - role: sudo
+      tags: sudo
     - role: qemu_agent
       tags: qemu_agent
     - role: nvidia_drivers_open
