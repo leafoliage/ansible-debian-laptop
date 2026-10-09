@@ -16,3 +16,5 @@
       tags: net_tools
     - role: docker
       tags: docker
+    - role: ssh
+      tags: ssh
