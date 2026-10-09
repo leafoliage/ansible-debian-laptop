@@ -2,6 +2,6 @@
 ansible_become_method: su
 ansible_become_user: root
 ansible_user: leaf
-automation_pubkey: "{{ lookup('file', '/path/to/key.pub') }}"
+automation_pubkey: "{{ lookup('ansible.builtin.file', lookup('ansible.builtin.env', 'AUTOMATION_PUBKEY_FILE')) }}"
 automation_user: ansible
 username: leaf
