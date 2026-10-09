@@ -14,3 +14,5 @@
       tags: qemu_agent
     - role: net_tools
       tags: net_tools
+    - role: docker
+      tags: docker
