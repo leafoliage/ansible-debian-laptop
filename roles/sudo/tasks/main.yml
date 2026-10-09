@@ -6,24 +6,24 @@
     state: present
   become: true
 
-- name: "Ensure wheel group exists"
+- name: "Ensure sudo group exists"
   become: true
   ansible.builtin.group:
-    name: wheel
+    name: sudo
     state: present
 
-- name: "Add user to wheel group: {{ username }}"
+- name: "Add user to sudo group: {{ username }}"
   become: true
   ansible.builtin.user:
     name: "{{ username }}"
-    groups: wheel
+    groups: sudo
     append: true
 
-- name: "Grant wheel group sudo access"
+- name: "Grant sudo group sudo access"
   become: true
   community.general.sudoers:
-    name: "wheel"
-    group: "wheel"
+    name: "sudo"
+    group: "sudo"
     state: present
     commands: "ALL"
     validation: required
